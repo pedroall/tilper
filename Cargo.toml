@@ -1,7 +1,11 @@
 [package]
 name = "tilper"
-version = "0.1.0"
+version = "0.0.1"
 edition = "2021"
+license = "MIT"
+repository = "https://github.com/pedroall/tilper"
+readme = "README.md"
+description = "A Simple NoSQL Database Written in Rust."
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
