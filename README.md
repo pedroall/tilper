@@ -15,11 +15,11 @@ cargo test
 # Example
 
 ### Creating a database and passing some values
-```rs
-use tilper::Tilper;
+```rust
+use tilper::db::{Database};
 
 fn main() {
-  let mut db = Tilper::new();
+  let mut db = Database::new();
   let data = db
     .set("foo".to_string(), "bar".to_string()).unwrap()
     .get("foo").unwrap();
