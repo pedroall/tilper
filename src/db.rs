@@ -1,20 +1,24 @@
 use std::collections::HashMap;
 use std::fs;
 
+#[derive(Debug)]
 #[allow(dead_code)]
 pub struct Database {
-    data: HashMap<String, String>
+    data: HashMap<String, String>,
+    path: String
 }
 
 #[allow(dead_code)]
 impl Database {
-    pub fn new() -> Database {
+    pub fn new(path: String) -> Database {
         Database {
-            data: HashMap::new()
+            data: HashMap::new(),
+            path: path
         }
     }
     pub fn load_data(&mut self) -> Result<&mut Database, String> {
-        let data = fs::read_to_string("db").unwrap();
+        let filename = self.path.clone();
+        let data = fs::read_to_string(filename).unwrap();
         for line in data.split("\n") {
             if !(line == "") {
                 let component: Vec<&str> = line
@@ -51,7 +55,8 @@ impl Database {
             }
         }
     }
-    pub fn get(&self, key: String) -> Result<String, String> {
+    pub fn get(&mut self, key: String) -> Result<String, String> {
+        self.load_data().unwrap();
         match self.data.get(&key) {
             Some(value) => Ok(value.to_string()),
             None => Err(format!("No value in the database with the key {}", key))
