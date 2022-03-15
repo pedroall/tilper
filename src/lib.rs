@@ -1,9 +1,9 @@
-pub mod tilper;
+pub mod db;
 
 #[test]
 fn db_get() {
-    let mut db = tilper::Tilper::new();
-    let data = db
+    let mut database = db::Database::new();
+    let data = database
         .set(
             "boo".to_string(),
             "far".to_string()

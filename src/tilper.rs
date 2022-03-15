@@ -2,18 +2,18 @@ use std::collections::HashMap;
 use std::fs;
 
 #[allow(dead_code)]
-pub struct Tilper {
+pub struct Database {
     data: HashMap<String, String>
 }
 
 #[allow(dead_code)]
-impl Tilper {
-    pub fn new() -> Tilper {
-        Tilper {
+impl Database {
+    pub fn new() -> Database {
+        Database {
             data: HashMap::new()
         }
     }
-    pub fn load_data(&mut self) -> Result<&mut Tilper, String> {
+    pub fn load_data(&mut self) -> Result<&mut Database, String> {
         let data = fs::read_to_string("db").unwrap();
         for line in data.split("\n") {
             if !(line == "") {
@@ -29,7 +29,7 @@ impl Tilper {
 
         Ok(self)
     }
-    pub fn replace_all(&mut self, map: HashMap<String, String>) -> Result<&mut Tilper, String> {
+    pub fn replace_all(&mut self, map: HashMap<String, String>) -> Result<&mut Database, String> {
         let mut results: Vec<String> = vec!();
 
         for (k, v) in map.iter() {
@@ -40,7 +40,7 @@ impl Tilper {
         fs::write("db", data).unwrap();
         Ok(self)
     }
-    pub fn set(&mut self, key: String, value: String) -> Result<&mut Tilper, String> {
+    pub fn set(&mut self, key: String, value: String) -> Result<&mut Database, String> {
         match self.data.contains_key(&key) {
             true => Err(format!("There's already a value in the database with the key {}", key)),
             false => {
